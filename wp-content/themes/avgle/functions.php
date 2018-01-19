@@ -9,7 +9,7 @@
 
 //script verison
 global $av_site_version;
-$av_site_version = '3.3.6';
+$av_site_version = '0.0.2';
 
 require_once(__DIR__.'/includes/old_function.php');
 
