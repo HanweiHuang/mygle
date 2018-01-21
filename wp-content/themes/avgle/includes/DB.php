@@ -7,7 +7,9 @@
  */
 
 class DB{
-    //singleton model
+    /**
+     * singleton model for php
+     */
     private static $db_connection = null;
 
     private function __construct(){
@@ -26,4 +28,20 @@ class DB{
     public function __clone(){
         die('clone not allowed');
     }
+
+    /**
+     * for database operation
+    */
+
+
 }
+
+
+
+
+
+
+
+
+
+

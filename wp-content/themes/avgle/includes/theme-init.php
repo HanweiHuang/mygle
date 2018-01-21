@@ -1,6 +1,10 @@
 <?php
 
-//scripts
+/**
+ * load necessary js css.
+ *
+ * js will autoload js that have the same name with template page
+ */
 function av_enqueue_scripts() {
     global $av_site_version;
     $template_uri = get_template_directory_uri();
@@ -25,4 +29,46 @@ function av_enqueue_scripts() {
         wp_enqueue_script( 'page-custom-js', $template_uri.$basename."=$av_site_version=.js", array(), NULL, false);
     }
 }
+
 add_action( 'wp_enqueue_scripts', 'av_enqueue_scripts' );
+
+
+/**
+ * @param $class_name
+ *
+ * rewrite autoload function for namespace of classes
+ */
+
+function my_class_file_autoloader( $class_name ) {
+
+    /**
+     * If the class being requested does not start with our prefix,
+     * we know it's not one in our project
+     */
+
+//    if ( 0 !== strpos( $class_name, 'My_' ) ) {
+//        return;
+//    }
+
+//    $file_name = str_replace(
+//        array( 'My_', '_' ),      // Prefix | Underscores
+//        array( '', '-' ),         // Remove | Replace with hyphens
+//        strtolower( $class_name ) // lowercase
+//    );
+
+
+    /**
+     * Compile our path from the current location
+    */
+    $file = dirname( __DIR__ ) . '/includes/'. $class_name .'.php';
+
+    $file = str_replace('\\', '/', $file);
+    echo $file;
+    // If a file is found
+    if ( file_exists( $file ) ) {
+        // Then load it up!
+        require_once( $file );
+    }
+}
+
+spl_autoload_register( 'my_class_file_autoloader' );
